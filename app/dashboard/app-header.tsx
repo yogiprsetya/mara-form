@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '~/components/ui/button';
 import { ProfileMenu } from './app-profile-menu';
 import dynamic from 'next/dynamic';
 
@@ -12,6 +13,12 @@ export const Header = () => (
     <div className="font-bold">MaraForm</div>
 
     <div className="flex gap-2 items-center">
+      <nav className="flex gap-2 items-center mr-8">
+        <Button asChild size="sm" variant="link">
+          <a href="/dashboard/manage-forms">Manage Forms</a>
+        </Button>
+      </nav>
+
       <ThemeToggle />
       <ProfileMenu />
     </div>

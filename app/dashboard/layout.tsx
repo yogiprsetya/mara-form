@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <>
       <Header />
-      <div className="px-6 md:mt-10 mt-6 pb-10">{children}</div>
+      <div className="md:mt-12 mt-6 pb-10 max-w-7xl w-full mx-auto">{children}</div>
     </>
   );
 }
