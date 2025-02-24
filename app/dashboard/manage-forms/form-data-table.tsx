@@ -9,7 +9,8 @@ import { Card } from '~/components/ui/card';
 import { Searchbar } from '~/components/pattern/Searchbar';
 import { Loading } from '~/components/ui/loading';
 import { If } from '~/components/ui/if';
-import { Boxes } from 'lucide-react';
+import { Boxes, Newspaper } from 'lucide-react';
+import { Button } from '~/components/ui/button';
 
 export const FormsDataTable = () => {
   const { data, setSearchKeyword, isLoading } = useFormsData();
@@ -41,8 +42,15 @@ export const FormsDataTable = () => {
 
   return (
     <div>
-      <div className="flex mb-6">
+      <div className="flex justify-center mb-8 items-center gap-4">
         <Searchbar className="w-72" onChange={setSearchKeyword} />
+
+        <Button asChild size="sm">
+          <a href="/dashboard/create-forms">
+            <Newspaper />
+            Create Forms
+          </a>
+        </Button>
       </div>
 
       {isLoading ? (
