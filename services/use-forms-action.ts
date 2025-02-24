@@ -3,11 +3,11 @@ import { useToast } from '~/hooks/useToast';
 import { httpClient } from '~/config/http-client';
 import { errorHandler } from '~/utils/error-handler';
 import type { HttpRequest } from '~/model/types/http';
-import type { CreateFormsType, Forms } from '~/model/types/forms';
+import type { CreateFormsType, FormsType } from '~/model/types/forms';
 import { useRouter } from 'next/navigation';
 import { useFormsData } from './use-forms-data';
 
-export const useProductAction = () => {
+export const useFormsAction = () => {
   const [isMutating, setMutating] = useState(false);
 
   const { toast } = useToast();
@@ -20,7 +20,7 @@ export const useProductAction = () => {
       setMutating(true);
 
       return httpClient
-        .delete<HttpRequest<Forms>>(`forms/${id}`)
+        .delete<HttpRequest<FormsType>>(`forms/${id}`)
         .then((res) => {
           mutate();
 
@@ -43,7 +43,7 @@ export const useProductAction = () => {
       setMutating(true);
 
       return httpClient
-        .post<HttpRequest<Forms>>('forms', form)
+        .post<HttpRequest<FormsType>>('forms', form)
         .then((res) => {
           toast({
             title: 'Forms created',
@@ -51,7 +51,7 @@ export const useProductAction = () => {
             duration: 2500
           });
 
-          router.push(`/dashboard/forms`);
+          router.push(`/dashboard/form-builder/${res.data.data.id}`);
 
           return res;
         })

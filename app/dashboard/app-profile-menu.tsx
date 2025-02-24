@@ -16,6 +16,7 @@ export const ProfileMenu = () => {
   const { data, status } = useSession();
 
   const shortName = data?.user?.name.match(/\b(\w)/g)?.join('');
+  const avatarSrc = data?.user?.image;
 
   if (status === 'loading') {
     return (
@@ -31,7 +32,7 @@ export const ProfileMenu = () => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar className="size-8">
-          <AvatarImage src={data?.user?.image} alt={data?.user?.name} />
+          <AvatarImage src={avatarSrc} alt={data?.user?.name} />
           <AvatarFallback>{shortName}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

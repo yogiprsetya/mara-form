@@ -12,13 +12,16 @@ export default async function middleware(req: NextRequest) {
 
   const session = await getToken({
     req,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET
   });
 
-  const isProtected = path.includes('/dashboard');
+  const isProtected = path.startsWith('/dashboard');
 
   if (!session && isProtected) {
     return NextResponse.redirect(new URL('/signin', req.url));
+  }
+
+  if (path === '/dashboard') {
   }
 
   return NextResponse.next();

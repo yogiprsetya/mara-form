@@ -2,7 +2,7 @@
 
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import { Forms } from '~/model/types/forms';
+import { FormsType } from '~/model/types/forms';
 import { useFormsData } from '~/services/use-forms-data';
 import { FormCardMenu } from './form-card-menu';
 import { Card } from '~/components/ui/card';
@@ -15,7 +15,7 @@ import { Button } from '~/components/ui/button';
 export const FormsDataTable = () => {
   const { data, setSearchKeyword, isLoading } = useFormsData();
 
-  const columns: ColumnDef<Forms>[] = useMemo(
+  const columns: ColumnDef<FormsType>[] = useMemo(
     () => [
       {
         header: 'Title',

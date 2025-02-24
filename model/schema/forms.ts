@@ -4,7 +4,7 @@ import { users } from './users';
 export const forms = pgTable('forms', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
-  description: text('description'),
+  description: text('description').notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
