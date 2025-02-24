@@ -1,5 +1,5 @@
 {
-  "id": "8553c68d-0c88-4d68-8316-54e8218a60fe",
+  "id": "c24a0306-d802-45fb-b8db-2bda42076033",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,7 +10,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "text",
           "primaryKey": true,
           "notNull": true
         },
@@ -24,7 +24,7 @@
           "name": "description",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "user_id": {
           "name": "user_id",
@@ -81,7 +81,7 @@
         },
         "form_id": {
           "name": "form_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -145,7 +145,7 @@
         },
         "form_id": {
           "name": "form_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },

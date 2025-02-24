@@ -11,13 +11,17 @@ import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { Button } from '~/components/ui/button';
 
-const schema = createInsertSchema(forms);
+const schema = createInsertSchema(forms).omit({ userId: true });
 
 export const InitNewForms = () => {
   const { createNewForms } = useFormsAction();
 
   const form = useForm<CreateFormsType>({
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema),
+    defaultValues: {
+      title: '',
+      description: ''
+    }
   });
 
   const onSubmit = (values: CreateFormsType) => {

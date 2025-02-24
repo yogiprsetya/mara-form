@@ -3,7 +3,7 @@ import { forms } from './forms';
 
 export const questions = pgTable('questions', {
   id: serial('id').primaryKey(),
-  formId: integer('form_id')
+  formId: text('form_id')
     .notNull()
     .references(() => forms.id, { onDelete: 'cascade' }),
   type: text('type', { enum: ['text', 'number', 'radio', 'checklist'] }).notNull(),

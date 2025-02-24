@@ -1,8 +1,10 @@
-import { pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { users } from './users';
 
 export const forms = pgTable('forms', {
-  id: serial('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   title: text('title').notNull(),
   description: text('description').notNull(),
   userId: text('user_id')

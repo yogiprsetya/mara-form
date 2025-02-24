@@ -1,7 +1,7 @@
 CREATE TABLE "forms" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"title" text NOT NULL,
-	"description" text,
+	"description" text NOT NULL,
 	"user_id" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
@@ -9,7 +9,7 @@ CREATE TABLE "forms" (
 --> statement-breakpoint
 CREATE TABLE "questions" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"form_id" integer NOT NULL,
+	"form_id" text NOT NULL,
 	"type" text NOT NULL,
 	"label" text NOT NULL,
 	"required" integer DEFAULT 0 NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE "questions" (
 --> statement-breakpoint
 CREATE TABLE "responses" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"form_id" integer NOT NULL,
+	"form_id" text NOT NULL,
 	"user_id" text,
 	"answers" jsonb NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL

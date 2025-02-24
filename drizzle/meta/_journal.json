@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1740361740147,
-      "tag": "0000_complete_zaladane",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1740362312971,
-      "tag": "0001_fearless_felicia_hardy",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1740362379100,
-      "tag": "0002_fearless_joseph",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1740362519067,
-      "tag": "0003_bumpy_sage",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1740362562772,
-      "tag": "0004_thick_stepford_cuckoos",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1740362734510,
-      "tag": "0005_cuddly_giant_man",
+      "when": 1740388522996,
+      "tag": "0000_lying_ronan",
       "breakpoints": true
     }
   ]
