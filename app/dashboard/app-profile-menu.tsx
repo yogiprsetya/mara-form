@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '~/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { signOut, useSession } from 'next-auth/react';
@@ -46,11 +46,7 @@ export const ProfileMenu = () => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem
-          className="text-destructive cursor-pointer"
-          role="button"
-          onClick={() => signOut()}
-        >
+        <DropdownMenuItem className="text-destructive cursor-pointer" role="button" onClick={() => signOut()}>
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

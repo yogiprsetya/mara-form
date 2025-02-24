@@ -3,8 +3,6 @@ import { users } from '../schema/users';
 
 export type User = InferSelectModel<typeof users>;
 
-// export type Role = User['role'];
-
 export type JWT = User & {
   sub: string;
   iat: number;

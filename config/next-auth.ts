@@ -30,7 +30,6 @@ export const nextAuthConfig: NextAuthOptions = {
         return {
           ...profile,
           id: profile.sub,
-          role: profile.role ?? 'trainee',
           image: profile.picture
         };
       }
@@ -46,6 +45,7 @@ export const nextAuthConfig: NextAuthOptions = {
         token.name = user.name;
         token.email = user.email;
         token.image = user.image ?? '';
+
         return token;
       }
 
@@ -56,7 +56,12 @@ export const nextAuthConfig: NextAuthOptions = {
       if (session.user) {
         return {
           ...session,
-          user: token
+          user: {
+            id: token.id,
+            email: token.email,
+            name: token.name,
+            image: token.image
+          }
         };
       }
 
