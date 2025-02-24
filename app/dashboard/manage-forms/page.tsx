@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
-import { Forms } from './forms';
+import { FormsDataTable } from './form-data-table';
 
 const ManageFormPage = () => (
   <Suspense>
-    <Forms />
+    <FormsDataTable />
   </Suspense>
 );
 

@@ -23,7 +23,8 @@ export const useFormsData = (opt?: Options) => {
   });
 
   const { data, isLoading, mutate } = useSWR<HttpRequest<Forms[]>, Error>(
-    opt?.disabled ? null : `forms?${params.toString()}`
+    opt?.disabled ? null : `forms?${params.toString()}`,
+    { revalidateOnFocus: false }
   );
 
   return {
