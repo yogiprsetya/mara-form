@@ -1,4 +1,4 @@
-import { Forms } from '~/model/types/forms';
+import { FormsType } from '~/model/types/forms';
 import useSWR from 'swr';
 import { HttpRequest } from '~/model/types/http';
 import { useState } from 'react';
@@ -22,7 +22,7 @@ export const useFormsData = (opt?: Options) => {
     page: opt?.page?.toString() || ''
   });
 
-  const { data, isLoading, mutate } = useSWR<HttpRequest<Forms[]>, Error>(
+  const { data, isLoading, mutate } = useSWR<HttpRequest<FormsType[]>, Error>(
     opt?.disabled ? null : `forms?${params.toString()}`,
     { revalidateOnFocus: false }
   );
