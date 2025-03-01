@@ -1,26 +1,37 @@
-import { Type, FileDigit } from 'lucide-react';
-import { FC, ReactNode } from 'react';
+import { FC, HTMLAttributes } from 'react';
+import { QuestionType } from '~/model/types/questions';
+import { TypeIcons } from './type-icon';
 
-const ButtonFieldSelect: FC<{ children: ReactNode }> = (props) => (
+const ButtonFieldSelect: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
   <div
     role="button"
-    className="flex items-center justify-center p-4 text-primary hover:text-foreground bg-background hover:bg-foreground/10"
+    onClick={props.onClick}
+    className="flex items-center justify-center border rounded-md p-4 text-primary hover:text-foreground bg-background hover:bg-secondary"
   >
     {props.children}
   </div>
 );
 
-export const FieldCreator = () => {
-  return (
-    <div className=" rounded-md bg-secondary w-96 overflow-hidden">
-      <div className="grid grid-cols-2 gap-2 p-6">
-        <ButtonFieldSelect>
-          <Type className="size-8" />
-        </ButtonFieldSelect>
+type FieldCreatorProps = {
+  onAdd: (v: { label: string; type: QuestionType; required: boolean }) => void;
+};
 
-        <ButtonFieldSelect>
-          <FileDigit className="size-8" />
-        </ButtonFieldSelect>
+export const FieldCreator: FC<FieldCreatorProps> = ({ onAdd }) => {
+  return (
+    <div className="w-96 overflow-hidden h-full">
+      <h3 className="mb-4 font-medium">Need a field?</h3>
+
+      <div className="grid grid-cols-2 gap-2">
+        {Object.entries(TypeIcons).map(([type, Icon]) => (
+          <ButtonFieldSelect
+            key={type}
+            onClick={() =>
+              onAdd({ label: 'Name for a field', type: type as QuestionType, required: false })
+            }
+          >
+            <Icon className="size-8" />
+          </ButtonFieldSelect>
+        ))}
       </div>
     </div>
   );

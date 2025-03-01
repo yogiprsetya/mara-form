@@ -8,7 +8,7 @@ type Options = {
 
 export const useFormsId = (opt?: Options) => {
   const { data, isLoading } = useSWR<HttpRequest<FormsType>, Error>(
-    !opt?.id ? null : `forms?${opt.id}`,
+    !opt?.id ? null : `forms/${opt.id}`,
     { revalidateOnFocus: false }
   );
 

@@ -6,8 +6,12 @@ import { NextRequest } from 'next/server';
 import { handleExpiredSession, handleInvalidRequest } from 'api-lib/handle-error-res';
 import { createInsertSchema } from 'drizzle-zod';
 import { handleSuccessResponse } from 'api-lib/handle-success-res';
+import { z } from 'zod';
 
-const createReqSchema = createInsertSchema(questions).array();
+const createReqSchema = z.object({
+  ...createInsertSchema(questions).pick({ formId: true }).shape,
+  questions: createInsertSchema(questions).omit({ formId: true, id: true }).array()
+});
 
 export const POST = async (req: NextRequest) => {
   const body = await bodyParse(req);
@@ -19,7 +23,12 @@ export const POST = async (req: NextRequest) => {
 
   return requireUserAuth(req, async (session) => {
     if (session) {
-      const result = await db.insert(questions).values(data).returning();
+      const values = data.questions.map((q) => ({
+        ...q,
+        formId: data.formId
+      }));
+
+      const result = await db.insert(questions).values(values).returning();
 
       return handleSuccessResponse(result[0]);
     }

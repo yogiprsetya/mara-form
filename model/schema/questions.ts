@@ -1,4 +1,4 @@
-import { pgTable, serial, text, integer, jsonb } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, jsonb, boolean } from 'drizzle-orm/pg-core';
 import { forms } from './forms';
 
 export const questions = pgTable('questions', {
@@ -6,8 +6,8 @@ export const questions = pgTable('questions', {
   formId: text('form_id')
     .notNull()
     .references(() => forms.id, { onDelete: 'cascade' }),
-  type: text('type', { enum: ['text', 'number', 'radio', 'checklist'] }).notNull(),
+  type: text('type', { enum: ['text', 'number', 'radio', 'checkbox'] }).notNull(),
   label: text('label').notNull(),
-  required: integer('required').default(0).notNull(), // 0 = false, 1 = true
+  required: boolean('required').notNull(),
   options: jsonb('options') // Only applicable for multiple-choice
 });

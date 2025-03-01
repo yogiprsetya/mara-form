@@ -2,7 +2,11 @@ import { requireUserAuth } from 'api-lib/protect-route';
 import { db } from '~/config/db';
 import { type NextRequest } from 'next/server';
 import { handleSuccessResponse } from 'api-lib/handle-success-res';
-import { handleDataNotFound, handleExpiredSession, handleInvalidRequest } from 'api-lib/handle-error-res';
+import {
+  handleDataNotFound,
+  handleExpiredSession,
+  handleInvalidRequest
+} from 'api-lib/handle-error-res';
 import { eq } from 'drizzle-orm';
 import { bodyParse } from '../../_lib/body-parse';
 import { createUpdateSchema } from 'drizzle-zod';
@@ -20,7 +24,7 @@ export const GET = async (req: NextRequest, { params }: Params) => {
   return requireUserAuth(req, async (session) => {
     if (session) {
       const result = await db.query.forms.findFirst({
-        where: eq(forms.id, Number(id)),
+        where: eq(forms.id, id),
         with: {
           questions: true,
           responses: true
@@ -53,7 +57,7 @@ export const PUT = async (req: NextRequest, { params }: Params) => {
           ...data,
           updatedAt: new Date()
         })
-        .where(eq(forms.id, Number(id)))
+        .where(eq(forms.id, id))
         .returning();
 
       return handleSuccessResponse(result[0]);
@@ -68,10 +72,7 @@ export const DELETE = async (req: NextRequest, { params }: Params) => {
 
   return requireUserAuth(req, async (session) => {
     if (session) {
-      const result = await db
-        .delete(forms)
-        .where(eq(forms.id, Number(id)))
-        .returning();
+      const result = await db.delete(forms).where(eq(forms.id, id)).returning();
 
       if (!result.length) return handleDataNotFound();
 
