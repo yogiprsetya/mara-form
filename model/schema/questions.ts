@@ -9,5 +9,5 @@ export const questions = pgTable('questions', {
   type: text('type', { enum: ['text', 'number', 'radio', 'checkbox'] }).notNull(),
   label: text('label').notNull(),
   required: boolean('required').notNull(),
-  options: jsonb('options') // Only applicable for multiple-choice
+  options: jsonb('options')
 });
