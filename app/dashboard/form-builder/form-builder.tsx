@@ -16,11 +16,12 @@ import { CreateQuestionsType } from '~/model/types/questions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { FieldCreator } from './field-creator';
-import { GripVertical, Trash } from 'lucide-react';
+import { ArrowLeft, GripVertical, Trash } from 'lucide-react';
 import { Checkbox } from '~/components/ui/checkbox';
 import { TypeIcons } from './type-icon';
 import { OptionBuilder } from './option-builder';
 import { useFormsAction } from '~/services/use-forms-action';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   id: string;
@@ -50,6 +51,7 @@ const schema = z.object({
 export const FormBuilder: FC<Props> = ({ id }) => {
   const { data } = useFormsId({ id });
   const { formBuilder, isMutating } = useFormsAction();
+  const router = useRouter();
 
   const form = useForm<CreateQuestionsType>({
     resolver: zodResolver(schema)
@@ -63,7 +65,7 @@ export const FormBuilder: FC<Props> = ({ id }) => {
   const onSubmit = (values: CreateQuestionsType) => {
     formBuilder(values);
   };
-  console.log(form.formState.errors);
+
   useEffect(() => {
     if (data?.data.questions) {
       form.reset({
@@ -81,7 +83,17 @@ export const FormBuilder: FC<Props> = ({ id }) => {
   return (
     <div className="relative flex w-full max-w-5xl mx-auto gap-10">
       <main className="w-full">
-        <header className="flex justify-end items-center mb-6">
+        <header className="flex justify-between items-center mb-6">
+          <Button
+            disabled={isMutating}
+            onClick={() => router.back()}
+            size="icon"
+            title="back"
+            variant="secondary"
+          >
+            <ArrowLeft />
+          </Button>
+
           <Button form="build-form" type="submit" disabled={isMutating}>
             {isMutating ? 'Loading' : 'Publish'}
           </Button>
