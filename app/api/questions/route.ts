@@ -7,6 +7,7 @@ import { handleExpiredSession, handleInvalidRequest } from 'api-lib/handle-error
 import { createInsertSchema } from 'drizzle-zod';
 import { handleSuccessResponse } from 'api-lib/handle-success-res';
 import { z } from 'zod';
+import { eq } from 'drizzle-orm';
 
 const createReqSchema = z.object({
   ...createInsertSchema(questions).pick({ formId: true }).shape,
@@ -23,14 +24,13 @@ export const POST = async (req: NextRequest) => {
 
   return requireUserAuth(req, async (session) => {
     if (session) {
-      const values = data.questions.map((q) => ({
-        ...q,
-        formId: data.formId
-      }));
+      await db.delete(questions).where(eq(questions.formId, data.formId));
+
+      const values = data.questions.map((q) => ({ ...q, formId: data.formId }));
 
       const result = await db.insert(questions).values(values).returning();
 
-      return handleSuccessResponse(result[0]);
+      return handleSuccessResponse(result);
     }
 
     return handleExpiredSession();

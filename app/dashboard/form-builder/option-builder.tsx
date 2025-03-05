@@ -38,7 +38,7 @@ export const OptionBuilder: FC<Props> = ({ optionIndex }) => {
                       onChange={(e) => {
                         const newOptions = [...(field.value ?? [])];
                         newOptions[optionIndex] = e.target.value;
-                        console.log('Option index:', newOptions);
+
                         field.onChange(newOptions);
                       }}
                       className="border-b h-10 focus-visible:outline-none w-full"

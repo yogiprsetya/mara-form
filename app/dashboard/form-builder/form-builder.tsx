@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Button } from '~/components/ui/button';
 import {
   Form,
@@ -20,6 +20,7 @@ import { GripVertical, Trash } from 'lucide-react';
 import { Checkbox } from '~/components/ui/checkbox';
 import { TypeIcons } from './type-icon';
 import { OptionBuilder } from './option-builder';
+import { useFormsAction } from '~/services/use-forms-action';
 
 type Props = {
   id: string;
@@ -48,12 +49,10 @@ const schema = z.object({
 
 export const FormBuilder: FC<Props> = ({ id }) => {
   const { data } = useFormsId({ id });
+  const { formBuilder, isMutating } = useFormsAction();
 
   const form = useForm<CreateQuestionsType>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      formId: id
-    }
+    resolver: zodResolver(schema)
   });
 
   const question = useFieldArray({
@@ -62,16 +61,29 @@ export const FormBuilder: FC<Props> = ({ id }) => {
   });
 
   const onSubmit = (values: CreateQuestionsType) => {
-    // createNewForms(values);
-    console.log(values);
+    formBuilder(values);
   };
+  console.log(form.formState.errors);
+  useEffect(() => {
+    if (data?.data.questions) {
+      form.reset({
+        formId: id,
+        questions: data.data.questions.map((q) => ({
+          type: q.type,
+          label: q.label,
+          required: q.required,
+          options: Array.isArray(q.options) ? q.options.map(String) : undefined
+        }))
+      });
+    }
+  }, [data?.data.questions, form, id]);
 
   return (
     <div className="relative flex w-full max-w-5xl mx-auto gap-10">
       <main className="w-full">
         <header className="flex justify-end items-center mb-6">
-          <Button form="build-form" type="submit">
-            Publish
+          <Button form="build-form" type="submit" disabled={isMutating}>
+            {isMutating ? 'Loading' : 'Publish'}
           </Button>
         </header>
 

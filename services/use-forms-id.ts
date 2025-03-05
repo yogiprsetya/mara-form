@@ -1,4 +1,4 @@
-import { FormsType } from '~/model/types/forms';
+import { FormWithQuestionsType } from '~/model/types/forms';
 import useSWR from 'swr';
 import { HttpRequest } from '~/model/types/http';
 
@@ -7,8 +7,8 @@ type Options = {
 };
 
 export const useFormsId = (opt?: Options) => {
-  const { data, isLoading } = useSWR<HttpRequest<FormsType>, Error>(
-    !opt?.id ? null : `forms/${opt.id}`,
+  const { data, isLoading } = useSWR<HttpRequest<FormWithQuestionsType>, Error>(
+    !opt?.id ? null : `forms/q:${opt.id}`,
     { revalidateOnFocus: false }
   );
 

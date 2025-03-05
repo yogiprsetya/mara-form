@@ -12,22 +12,37 @@ import { bodyParse } from '../../_lib/body-parse';
 import { createUpdateSchema } from 'drizzle-zod';
 import { forms } from '~/model/schema/forms';
 
+enum Prefix {
+  QUESTIONS = 'q:',
+  RESPONSES = 'r:'
+}
+
 type Params = {
-  params: { id: string };
+  params: { id: `${Prefix.QUESTIONS | Prefix.RESPONSES}${string}` };
 };
 
 const createReqSchema = createUpdateSchema(forms);
 
 export const GET = async (req: NextRequest, { params }: Params) => {
-  const { id } = await params;
+  const { id } = params;
+
+  if (!id.startsWith(Prefix.QUESTIONS) && !id.startsWith(Prefix.RESPONSES)) {
+    return handleInvalidRequest(
+      `Invalid ID format. ID must start with "${Prefix.QUESTIONS}" or "${Prefix.RESPONSES}".`
+    );
+  }
+
+  const isWithQuestions = id.startsWith(Prefix.QUESTIONS);
+  const isWithResponses = id.startsWith(Prefix.RESPONSES);
+  const [, formId] = id.split(':');
 
   return requireUserAuth(req, async (session) => {
     if (session) {
       const result = await db.query.forms.findFirst({
-        where: eq(forms.id, id),
+        where: eq(forms.id, formId),
         with: {
-          questions: true,
-          responses: true
+          questions: isWithQuestions ? true : undefined,
+          responses: isWithResponses ? true : undefined
         }
       });
 
