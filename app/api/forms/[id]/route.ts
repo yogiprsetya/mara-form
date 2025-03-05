@@ -7,7 +7,7 @@ import {
   handleExpiredSession,
   handleInvalidRequest
 } from 'api-lib/handle-error-res';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { bodyParse } from '../../_lib/body-parse';
 import { createUpdateSchema } from 'drizzle-zod';
 import { forms } from '~/model/schema/forms';
@@ -87,7 +87,10 @@ export const DELETE = async (req: NextRequest, { params }: Params) => {
 
   return requireUserAuth(req, async (session) => {
     if (session) {
-      const result = await db.delete(forms).where(eq(forms.id, id)).returning();
+      const result = await db
+        .delete(forms)
+        .where(and(eq(forms.id, id), eq(forms.userId, session.id)))
+        .returning();
 
       if (!result.length) return handleDataNotFound();
 

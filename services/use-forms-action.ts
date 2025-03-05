@@ -16,8 +16,8 @@ export const useFormsAction = () => {
 
   const { mutate } = useFormsData();
 
-  const deleteProductById = useCallback(
-    (id: number) => {
+  const deleteFormById = useCallback(
+    (id: string) => {
       setMutating(true);
 
       return httpClient
@@ -27,7 +27,7 @@ export const useFormsAction = () => {
 
           toast({
             title: 'Forms deleted',
-            description: 'A forms deleted successfully',
+            description: 'A forms and related fields are deleted successfully',
             duration: 2500
           });
 
@@ -88,7 +88,7 @@ export const useFormsAction = () => {
   return {
     isMutating,
     createNewForms,
-    deleteProductById,
+    deleteFormById,
     formBuilder
   };
 };

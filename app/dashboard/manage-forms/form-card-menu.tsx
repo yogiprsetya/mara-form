@@ -8,10 +8,10 @@ import {
   DropdownMenuTrigger
 } from '~/components/ui/dropdown-menu';
 import { FormsType } from '~/model/types/forms';
-import { useProductState } from './use-state';
+import { useManageFormState } from './use-state';
 
 export const FormCardMenu: FC<FormsType> = (props) => {
-  const { openDeleteModal } = useProductState();
+  const { openDeleteModal } = useManageFormState();
 
   return (
     <DropdownMenu>

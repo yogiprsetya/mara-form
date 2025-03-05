@@ -11,9 +11,12 @@ import { Loading } from '~/components/ui/loading';
 import { If } from '~/components/ui/if';
 import { Boxes, Newspaper } from 'lucide-react';
 import { Button } from '~/components/ui/button';
+import { useManageFormState } from './use-state';
+import { ModalDeleteForms } from './modal-delete-forms';
 
 export const FormsDataTable = () => {
   const { data, setSearchKeyword, isLoading } = useFormsData();
+  const state = useManageFormState();
 
   const columns: ColumnDef<FormsType>[] = useMemo(
     () => [
@@ -57,10 +60,15 @@ export const FormsDataTable = () => {
         <Loading className="size-6 mx-auto" />
       ) : (
         <div className="grid grid-cols-4 gap-4">
-          <If condition={table.getRowModel().rows?.length} fallback="Data form is empty, please create.">
+          <If
+            condition={table.getRowModel().rows?.length}
+            fallback="Data form is empty, please create."
+          >
             {table.getRowModel().rows.map((row) => {
               const cellMenu = row.getVisibleCells().find((cell) => cell.column.id === 'menu');
-              const menuEl = cellMenu ? flexRender(cellMenu.column.columnDef.cell, cellMenu.getContext()) : null;
+              const menuEl = cellMenu
+                ? flexRender(cellMenu.column.columnDef.cell, cellMenu.getContext())
+                : null;
 
               return (
                 <Card key={row.original.id} className="flex h-20">
@@ -84,6 +92,12 @@ export const FormsDataTable = () => {
           </If>
         </div>
       )}
+
+      <ModalDeleteForms
+        open={state.isDeleteModalOpen}
+        onOpenChange={state.closeDeleteModal}
+        data={state.form}
+      />
     </div>
   );
 };

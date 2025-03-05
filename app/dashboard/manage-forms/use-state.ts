@@ -1,19 +1,19 @@
 import { create } from 'zustand';
-import { Forms } from '~/model/types/forms';
+import { FormsType } from '~/model/types/forms';
 import { devtools } from 'zustand/middleware';
 
 type State = {
-  form?: Forms;
+  form?: FormsType;
 
   isDeleteModalOpen: boolean;
-  openDeleteModal: (form: Forms) => void;
+  openDeleteModal: (form: FormsType) => void;
   closeDeleteModal: () => void;
 };
 
-export const useProductState = create<State>()(
+export const useManageFormState = create<State>()(
   devtools((set) => ({
     isDeleteModalOpen: false,
-    openDeleteModal: (product) => set(() => ({ isDeleteModalOpen: true, product })),
-    closeDeleteModal: () => set(() => ({ isDeleteModalOpen: false, product: undefined }))
+    openDeleteModal: (form) => set(() => ({ isDeleteModalOpen: true, form })),
+    closeDeleteModal: () => set(() => ({ isDeleteModalOpen: false, form: undefined }))
   }))
 );
