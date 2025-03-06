@@ -33,7 +33,7 @@ export const InitNewForms = () => {
       <h1 className="mb-4 text-2xl font-semibold text-center">Start New Forms</h1>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} id="manage-product" className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="title"

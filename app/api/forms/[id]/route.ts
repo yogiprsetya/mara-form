@@ -39,7 +39,7 @@ export const GET = async (req: NextRequest, { params }: Params) => {
   return requireUserAuth(req, async (session) => {
     if (session) {
       const result = await db.query.forms.findFirst({
-        where: eq(forms.id, formId),
+        where: and(eq(forms.id, formId), eq(forms.userId, session.id)),
         with: {
           questions: isWithQuestions ? true : undefined,
           responses: isWithResponses ? true : undefined
@@ -69,10 +69,11 @@ export const PUT = async (req: NextRequest, { params }: Params) => {
       const result = await db
         .update(forms)
         .set({
-          ...data,
+          title: data.title,
+          description: data.description,
           updatedAt: new Date()
         })
-        .where(eq(forms.id, id))
+        .where(and(eq(forms.id, id), eq(forms.userId, session.id)))
         .returning();
 
       return handleSuccessResponse(result[0]);

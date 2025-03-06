@@ -85,9 +85,32 @@ export const useFormsAction = () => {
     [router, toast]
   );
 
+  const updateDataForms = useCallback(
+    ({ id, title, description }: CreateFormsType) => {
+      setMutating(true);
+
+      return httpClient
+        .put<HttpRequest<FormsType>>(`forms/${id}`, { title, description })
+        .then((res) => {
+          mutate();
+
+          toast({
+            title: 'Forms updated',
+            duration: 2500
+          });
+
+          return res.data;
+        })
+        .catch(errorHandler)
+        .finally(() => setMutating(false));
+    },
+    [mutate, toast]
+  );
+
   return {
     isMutating,
     createNewForms,
+    updateDataForms,
     deleteFormById,
     formBuilder
   };

@@ -11,18 +11,20 @@ import { FormsType } from '~/model/types/forms';
 import { useManageFormState } from './use-state';
 
 export const FormCardMenu: FC<FormsType> = (props) => {
-  const { openDeleteModal } = useManageFormState();
+  const { openDeleteModal, openEditModal } = useManageFormState();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="shrink-0">
         <Ellipsis className="text-primary" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <a href={`/dashboard/form-builder/${props.id}`}>Edit</a>
+          <a href={`/dashboard/form-builder/${props.id}`}>Build</a>
         </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={() => openEditModal(props)}>Edit</DropdownMenuItem>
 
         <DropdownMenuSeparator />
 

@@ -13,6 +13,7 @@ import { Boxes, Newspaper } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { useManageFormState } from './use-state';
 import { ModalDeleteForms } from './modal-delete-forms';
+import { ModalEditForms } from './modal-edit-forms';
 
 export const FormsDataTable = () => {
   const { data, setSearchKeyword, isLoading } = useFormsData();
@@ -76,17 +77,22 @@ export const FormsDataTable = () => {
                     <Boxes className="text-primary size-8" />
                   </div>
 
-                  <div className="p-4 h-full w-full">
-                    <div className="flex justify-between items-center">
-                      <h3 className="font-semibold">{row.original.title}</h3>
-                      {menuEl}
-                    </div>
+                  <div className="h-full grow overflow-hidden">
+                    <div className="p-4">
+                      <div className="flex justify-between items-center gap-2">
+                        <h3 className="font-semibold truncate" title={row.original.title}>
+                          {row.original.title}
+                        </h3>
 
-                    <If condition={row.original.description}>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {row.original.description}
-                      </p>
-                    </If>
+                        {menuEl}
+                      </div>
+
+                      <If condition={row.original.description}>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {row.original.description}
+                        </p>
+                      </If>
+                    </div>
                   </div>
                 </Card>
               );
@@ -98,6 +104,12 @@ export const FormsDataTable = () => {
       <ModalDeleteForms
         open={state.isDeleteModalOpen}
         onOpenChange={state.closeDeleteModal}
+        data={state.form}
+      />
+
+      <ModalEditForms
+        open={state.isEditModalOpen}
+        onOpenChange={state.closeEditModal}
         data={state.form}
       />
     </div>
