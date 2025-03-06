@@ -21,7 +21,7 @@ export const FormCardMenu: FC<FormsType> = (props) => {
 
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <a href={`/dashboard/form-builder/${props.id}`}>Build</a>
+          <a href={`/dashboard/form-builder/${props.id}`}>Build fields</a>
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => openEditModal(props)}>Edit</DropdownMenuItem>
