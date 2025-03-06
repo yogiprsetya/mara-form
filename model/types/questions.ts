@@ -9,6 +9,7 @@ export type CreateQuestionsType = {
     type: InferInsertModel<typeof questions>['type'];
     label: InferInsertModel<typeof questions>['label'];
     required: InferInsertModel<typeof questions>['required'];
+    order: InferInsertModel<typeof questions>['order'];
     options?: string[];
   }>;
 };

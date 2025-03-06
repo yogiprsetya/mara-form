@@ -13,10 +13,11 @@ const ButtonFieldSelect: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
 );
 
 type FieldCreatorProps = {
-  onAdd: (v: { label: string; type: QuestionType; required: boolean }) => void;
+  length: number;
+  onAdd: (v: { label: string; type: QuestionType; required: boolean; order: number }) => void;
 };
 
-export const FieldCreator: FC<FieldCreatorProps> = ({ onAdd }) => {
+export const FieldCreator: FC<FieldCreatorProps> = ({ onAdd, length }) => {
   return (
     <div className="w-96 overflow-hidden h-full">
       <h3 className="mb-4 font-medium">Need a field?</h3>
@@ -26,7 +27,12 @@ export const FieldCreator: FC<FieldCreatorProps> = ({ onAdd }) => {
           <ButtonFieldSelect
             key={type}
             onClick={() =>
-              onAdd({ label: 'Name for a field', type: type as QuestionType, required: false })
+              onAdd({
+                label: 'Name for a field',
+                type: type as QuestionType,
+                required: false,
+                order: length + 1
+              })
             }
           >
             <Icon className="size-8" />

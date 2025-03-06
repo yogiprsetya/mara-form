@@ -14,7 +14,7 @@ import { Button } from '~/components/ui/button';
 const schema = createInsertSchema(forms).omit({ userId: true });
 
 export const InitNewForms = () => {
-  const { createNewForms } = useFormsAction();
+  const { createNewForms, isMutating } = useFormsAction();
 
   const form = useForm<CreateFormsType>({
     resolver: zodResolver(schema),
@@ -67,7 +67,9 @@ export const InitNewForms = () => {
           />
 
           <div className="flex justify-center">
-            <Button type="submit">Let&apos;s Build a Form</Button>
+            <Button type="submit" disabled={isMutating}>
+              {isMutating ? 'Create Forms in progress...' : "Let's Build a Form"}
+            </Button>
           </div>
         </form>
       </Form>

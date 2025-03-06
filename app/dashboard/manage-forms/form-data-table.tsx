@@ -71,7 +71,7 @@ export const FormsDataTable = () => {
                 : null;
 
               return (
-                <Card key={row.original.id} className="flex h-20">
+                <Card key={row.original.id} className="flex h-24">
                   <div className="w-20 shrink-0 bg-secondary flex justify-center items-center rounded-l-lg">
                     <Boxes className="text-primary size-8" />
                   </div>
@@ -83,7 +83,9 @@ export const FormsDataTable = () => {
                     </div>
 
                     <If condition={row.original.description}>
-                      <p className="text-sm mt-2">{row.original.description}</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {row.original.description}
+                      </p>
                     </If>
                   </div>
                 </Card>
