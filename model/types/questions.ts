@@ -1,17 +1,24 @@
-import type { InferSelectModel, InferInsertModel } from 'drizzle-orm';
+import type { InferSelectModel } from 'drizzle-orm';
 import { questions } from '../schema/questions';
+import { FormsType } from './forms';
 
 export type QuestionsType = InferSelectModel<typeof questions>;
 
+type Questions = Array<{
+  type: QuestionsType['type'];
+  label: QuestionsType['label'];
+  required: QuestionsType['required'];
+  order: QuestionsType['order'];
+  options?: string[];
+}>;
+
 export type CreateQuestionsType = {
   formId: string;
-  questions: Array<{
-    type: InferInsertModel<typeof questions>['type'];
-    label: InferInsertModel<typeof questions>['label'];
-    required: InferInsertModel<typeof questions>['required'];
-    order: InferInsertModel<typeof questions>['order'];
-    options?: string[];
-  }>;
+  questions: Questions;
 };
 
 export type QuestionType = QuestionsType['type'];
+
+export type QuestionForms = Omit<FormsType, 'id' | 'userId'> & {
+  questions: Questions;
+};
