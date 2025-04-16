@@ -5,6 +5,7 @@ import { FormsType } from './forms';
 export type QuestionsType = InferSelectModel<typeof questions>;
 
 type Questions = Array<{
+  id: QuestionsType['type'];
   type: QuestionsType['type'];
   label: QuestionsType['label'];
   required: QuestionsType['required'];
